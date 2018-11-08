@@ -25,7 +25,6 @@ def adm_connection(conns, mac):
 	while not quit:
 		request = adm.recv()
 		if request is None: continue
-		print(f'request: {request}')
 		getattr(adm, request[0])(*request[1:])
 
 def main(addr='127.0.0.1', porta=5001):

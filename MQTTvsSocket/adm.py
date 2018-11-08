@@ -39,15 +39,14 @@ class Adm(client.Client):
 
 	def second_page(self, key, subscriptions):
 		self.clear_page()
-
 		for key_other, name_other, _ in self.devices:
-			print(key, key_other, subscriptions)
 			if name_other == 'ADM' or key == key_other: continue
+#			print(name_other, key_other, key)
 			if key_other in subscriptions:
-				button = tk.Button(self.root, text=f'{name_other} - subscribed', command=lambda: self.unsubscribe(key_other, key))
+				button = tk.Button(self.root, text=f'{name_other} - subscribed', command=Function(self.unsubscribe, key, key_other))
 			else:
 				text = f'{name_other} - not subscribed'
-				button = tk.Button(self.root, text=text, command=lambda: self.code_page(key_other, key))				
+				button = tk.Button(self.root, text=text, command=Function(self.code_page, key, key_other))				
 			button.pack()
 			self.buttons.append(button)
 
@@ -58,13 +57,20 @@ class Adm(client.Client):
 	def code_page(self, sender, reciever):
 		self.clear_page()
 
-		my_msg = tk.StringVar()
-		my_msg.set('''def func(data):\n\treturn data''')
-		entry_field = tk.Entry(self.root, textvariable=my_msg)
-		entry_field.bind("<ctr><Return>", lambda: self.subscribe(sender, reciever, my_msg.get()))
-		entry_field.pack()
-		self.buttons.append(entry_field)
-		self.buttons.append(my_msg)
+		# my_msg = tk.StringVar()
+		# my_msg.set('''def func(data):\n\treturn data''')
+		# entry_field = tk.Entry(self.root, textvariable=my_msg)
+		# entry_field.bind("<ctr><Return>", Function(self.subscribe, sender, reciever, my_msg.get()))
+		# entry_field.pack()
+		# self.buttons.append(entry_field)
+		# self.buttons.append(my_msg)
+
+		x = '''def func(data):
+	return data'''
+
+		self.subscribe(sender, reciever, x)
+
+		self.main_page()
 
 	def keep_alive(self):
 		while True:
@@ -81,7 +87,7 @@ class Adm(client.Client):
 		self.main_page()
 
 	def unsubscribe(self, sender, reciever):
-		self.send(('unsubscribe', sender, reciever, function))
+		self.send(('unsubscribe', sender, reciever))
 		self.main_page()
 
 if __name__ == '__main__':

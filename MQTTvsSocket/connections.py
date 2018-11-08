@@ -51,6 +51,9 @@ class Conn():
 	def __setitem__(self, *args, **kwargs):
 		return self.func.__setitem__(*args, **kwargs)
 
+	def __delitem__(self, index):
+		return self.func.__delitem__(index)
+
 class Dict(dict):
 	def __init__(self, *args, **kwargs):
 		super(Dict, self).__init__(*args, **kwargs)
@@ -81,13 +84,13 @@ class Dict(dict):
 		pass
 
 	def subscribe(self, sender, reciever, function):
-		if reciever not in self[sender].subscription:
-			self[sender].subscription.append(reciever)
+		if reciever not in self[sender].subscriptions:
+			self[sender].subscriptions.append(reciever)
 			self[sender][reciever] = Func(function)
 
 	def unsubscribe(self, sender, reciever):
-		if reciever in self[sender].subscription:
-			self[sender].subscription.remove(reciever)
+		if reciever in self[sender].subscriptions:
+			self[sender].subscriptions.remove(reciever)
 			del(self[sender][reciever])
 
 	def disconnect(self, conn):

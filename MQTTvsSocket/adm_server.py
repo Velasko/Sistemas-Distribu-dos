@@ -11,7 +11,7 @@ class Adm():
 		cont = json.dumps([[key, value.name, value.subscriptions] for key, value in self.conn.items()]).encode()
 		self.c.send(len(cont).to_bytes(1024, 'big'))
 		self.c.send(cont)
-		print('devices sent')
+#		print('devices sent')
 
 	def recv(self, encoder=None, buffer_size=1024):
 		if encoder is None:
