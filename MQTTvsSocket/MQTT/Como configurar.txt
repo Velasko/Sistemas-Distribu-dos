@@ -1,0 +1,10 @@
+Os sensores foram simulados por terminal, sensores esses que estão conectados no cloudMqtt por meio de url, username e password.
+O controle desses sensores foi feito a partir do app MQTTDASH.
+No MQTTDASH, é possível criar um cenário a ser controlado (você cria perfis, que dentro desses perfis estão os botões, barras e etc).
+Configura-se, dentro desse perfil, o broker a ser utilizado, passando username e password caso seu broker necessite (no caso, cloudMqtt precisa dessas informações,
+que podem ser adquiridas no site, após o cadastro).
+Ao criar um botão, o usuário passa o tópico  em que ele está inscrito, ação que será feita ao apertar o botão (Ex. apertando uma vez, manda para o tópico LANTERNA, o complemento
+ON, apertando novamente, publica novamente nesse tópico a informação OFF e etc).
+Vale ressaltar que no projeto o cloudMqtt, em sua versão FREE, só deixa 5 dispositivos se conectarem ao mesmo tempo ao broker.
+
+Para executar os sensores, basta abrir em terminal que eles estarão se conectando ao broker escolhido nas linhas de código.

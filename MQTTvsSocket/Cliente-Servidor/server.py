@@ -33,7 +33,6 @@ def main(addr='127.0.0.1', porta=5001):
 
 	tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	server = (addr, porta)
-	tcp.settimeout(10000)
 	tcp.bind(server)
 	tcp.listen()
 
@@ -55,4 +54,4 @@ def main(addr='127.0.0.1', porta=5001):
 		t.start()
 
 if __name__ == '__main__':
-	main()
+	main(addr='velasco.com', porta=25000)
